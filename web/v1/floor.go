@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"customer_partner_match/model"
 	"customer_partner_match/pkg"
 	"customer_partner_match/pkg/pkgError"
 	"customer_partner_match/pkg/webResponse"
@@ -11,44 +12,53 @@ import (
 )
 
 type FloorV1Handler struct {
-	useCase input.FloorUseCase
+	UseCase input.FloorUseCase
 }
 
 func (h *FloorV1Handler) NewPartner(w http.ResponseWriter, r *http.Request) {}
 
 func (h *FloorV1Handler) FindPartners(w http.ResponseWriter, r *http.Request) {
-	requestDTO := input.FloorRequestDTO{}
+	requestDTO := model.FloorRequestDTO{}
 	_, appError := pkg.UnmarshalDto(w, r, &requestDTO)
 	if appError != nil {
 		return
 	}
-	if math.Abs(requestDTO.Latitude) > 180 || math.Abs(requestDTO.Longitude) > 180 {
-		webResponse.ERROR(w, http.StatusBadRequest,
-			pkgError.NewInputError("", errors.New("invalid latitude/longitude")))
-		return
-	}
 
-	missingFields := ""
-	if (requestDTO.Wood && requestDTO.Tiles && requestDTO.Carpet) == false {
-		missingFields += "no material selected, "
-	}
-	if requestDTO.FloorArea == 0 {
-		missingFields += "missing floor area (square meter), "
-	}
-	if requestDTO.Phone == "" {
-		missingFields += "missing phone, "
-	}
-
+	missingFields := checkFindPartnersDTO(requestDTO)
 	if missingFields != "" {
 		webResponse.ERROR(w, http.StatusBadRequest,
-			pkgError.NewInputError("", errors.New(missingFields[:len(missingFields)-2])))
+			pkgError.NewInputError("missing/invalid field(s)", errors.New(missingFields)))
 		return
 	}
 
-	appError = h.useCase.FindPartner(r.Context(), requestDTO)
+	floorPartners, appError := h.UseCase.FindPartners(r.Context(), requestDTO)
 	if appError != nil {
 		//TODO treat errors
+		return
 	}
-	webResponse.JSON(w, http.StatusOK, nil)
+	webResponse.JSON(w, http.StatusOK, floorPartners)
+	return
+}
 
+func checkFindPartnersDTO(requestDTO model.FloorRequestDTO) string {
+	missingFields := ""
+	if math.Abs(requestDTO.Latitude) > 180 {
+		missingFields += "latitude, "
+	}
+	if math.Abs(requestDTO.Longitude) > 180 {
+		missingFields += "longitude, "
+	}
+	if requestDTO.FloorArea <= 0 {
+		missingFields += "floor_area, "
+	}
+	if requestDTO.Phone == "" {
+		missingFields += "phone, "
+	}
+	if (requestDTO.Wood && requestDTO.Tiles && requestDTO.Carpet) == false {
+		missingFields += "no material selected (wood, tiles and/or carpet), "
+	}
+	if missingFields != "" {
+		return missingFields[:len(missingFields)-2]
+	}
+	return ""
 }

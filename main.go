@@ -19,7 +19,9 @@ func main() {
 		config.ENV.DBPassword)
 	defer db.CloseDBConnection(dbConnection)
 
-	floorPartnerUseCase := floor.New(dbConnection, "floor_partner")
+	floorPartnerRepository := db.NewFloorPartnerRepository(dbConnection, "floor_partner_table")
+
+	floorPartnerUseCase := floor.New(floorPartnerRepository)
 
 	r := mux.NewRouter()
 	web.ConfigureFloorPartnerRoutes(floorPartnerUseCase, r)
