@@ -1,8 +1,12 @@
 package floor
 
-import "github.com/jackc/pgx/v4"
+import (
+	"customer_partner_match/ports/input"
+	"github.com/jackc/pgx/v4"
+)
 
 type service struct {
+	input.FloorUseCase
 	dbConn *pgx.Conn
 	table  string
 }
@@ -13,7 +17,6 @@ func New(dbConn *pgx.Conn, table string) *service {
 		table:  table,
 	}
 }
+func (s *service) CreatePartner() {}
 
 func (s *service) FindPartner() {}
-
-func (s *service) CreatePartner() {}
