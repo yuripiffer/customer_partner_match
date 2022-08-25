@@ -15,7 +15,28 @@ type FloorV1Handler struct {
 	UseCase input.FloorUseCase
 }
 
-func (h *FloorV1Handler) NewPartner(w http.ResponseWriter, r *http.Request) {}
+func (h *FloorV1Handler) CreatePartner(w http.ResponseWriter, r *http.Request) {
+	requestDTO := model.NewFloorPartnerDTO{}
+	_, appError := pkg.UnmarshalDto(w, r, &requestDTO)
+	if appError != nil {
+		return
+	}
+
+	missingFields := checkNewPartnerDTO(requestDTO)
+	if missingFields != "" {
+		webResponse.ERROR(w, http.StatusBadRequest,
+			pkgError.NewInputError("missing/invalid field(s)", errors.New(missingFields)))
+		return
+	}
+
+	partner, appError := h.UseCase.CreatePartner(r.Context(), requestDTO)
+	if appError != nil {
+		//TODO treat errors
+		return
+	}
+	webResponse.JSON(w, http.StatusOK, partner)
+	return
+}
 
 func (h *FloorV1Handler) FindPartners(w http.ResponseWriter, r *http.Request) {
 	requestDTO := model.FloorRequestDTO{}
@@ -40,12 +61,36 @@ func (h *FloorV1Handler) FindPartners(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func checkFindPartnersDTO(requestDTO model.FloorRequestDTO) string {
+func checkNewPartnerDTO(requestDTO model.NewFloorPartnerDTO) string {
 	missingFields := ""
-	if math.Abs(requestDTO.Latitude) > 180 {
+	if math.Abs(requestDTO.Latitude) > 180. {
 		missingFields += "latitude, "
 	}
-	if math.Abs(requestDTO.Longitude) > 180 {
+	if math.Abs(requestDTO.Longitude) > 180. {
+		missingFields += "longitude, "
+	}
+	if requestDTO.Partner == "" {
+		missingFields += "partner, "
+	}
+	if requestDTO.OperatingRadius <= 0 {
+		missingFields += "operating_radius, "
+	}
+
+	if (requestDTO.Wood && requestDTO.Tiles && requestDTO.Carpet) == false {
+		missingFields += "no material informed (wood, tiles and/or carpet), "
+	}
+	if missingFields != "" {
+		return missingFields[:len(missingFields)-2]
+	}
+	return ""
+}
+
+func checkFindPartnersDTO(requestDTO model.FloorRequestDTO) string {
+	missingFields := ""
+	if math.Abs(requestDTO.Latitude) > 180. {
+		missingFields += "latitude, "
+	}
+	if math.Abs(requestDTO.Longitude) > 180. {
 		missingFields += "longitude, "
 	}
 	if requestDTO.FloorArea <= 0 {

@@ -7,7 +7,8 @@ import (
 )
 
 type FloorUseCase interface {
-	CreatePartner(ctx context.Context)
+	CreatePartner(ctx context.Context, inputDTO model.NewFloorPartnerDTO) (
+		model.NewFloorPartnerDTO, pkgError.AppError)
 	FindPartners(ctx context.Context, inputDTO model.FloorRequestDTO) (
-		[]model.FloorPartnerDTO, pkgError.AppError)
+		[]model.FloorPartnerResponseDTO, pkgError.AppError)
 }
