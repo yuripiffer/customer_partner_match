@@ -22,4 +22,5 @@ require (
 	github.com/shopspring/decimal v1.3.1 // indirect
 	golang.org/x/crypto v0.0.0-20220824171710-5757bc0c5503 // indirect
 	golang.org/x/text v0.3.7 // indirect
+	gopkg.in/validator.v2 v2.0.1 // indirect
 )

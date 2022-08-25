@@ -5,7 +5,6 @@ import (
 	"customer_partner_match/infrastructure/config"
 	"customer_partner_match/infrastructure/db"
 	"customer_partner_match/web"
-	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -21,7 +20,6 @@ func main() {
 	defer db.CloseDBConnection(dbConnection)
 
 	floorPartnerUseCase := floor.New(dbConnection, "floor_partner")
-	fmt.Println(floorPartnerUseCase) //remove
 
 	r := mux.NewRouter()
 	web.ConfigureFloorPartnerRoutes(floorPartnerUseCase, r)
