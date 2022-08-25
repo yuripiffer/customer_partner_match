@@ -4,11 +4,13 @@ go 1.18
 
 require (
 	github.com/Netflix/go-env v0.0.0-20220526054621-78278af1949d
+	github.com/gofrs/uuid v4.2.0+incompatible
+	github.com/gorilla/mux v1.8.0
 	github.com/jackc/pgx/v4 v4.17.0
+	gopkg.in/validator.v2 v2.0.1
 )
 
 require (
-	github.com/gofrs/uuid v4.2.0+incompatible // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.13.0 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect

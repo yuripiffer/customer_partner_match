@@ -4,7 +4,9 @@ import (
 	"customer_partner_match/domain/floor"
 	"customer_partner_match/infrastructure/config"
 	"customer_partner_match/infrastructure/db"
-	"fmt"
+	"customer_partner_match/web"
+	"github.com/gorilla/mux"
+	"net/http"
 )
 
 func main() {
@@ -17,7 +19,15 @@ func main() {
 		config.ENV.DBPassword)
 	defer db.CloseDBConnection(dbConnection)
 
-	floorRepository := floor.New(dbConnection, "floor_partner")
-	fmt.Println(floorRepository) //remove
+	floorPartnerRepository := db.NewFloorPartnerRepository(dbConnection, "floor_partner_table")
+
+	floorPartnerUseCase := floor.New(floorPartnerRepository)
+
+	r := mux.NewRouter()
+	web.ConfigureFloorPartnerRoutes(floorPartnerUseCase, r)
+	err := http.ListenAndServe(":85", r)
+	if err != nil {
+		panic(err)
+	}
 
 }
