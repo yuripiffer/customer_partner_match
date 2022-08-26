@@ -9,7 +9,7 @@ A usecase for flooring partners experienced in wood, tiles and/or carpet has bee
 - **Language:** Golang 1.18
 - **Software Architecture:** Clean Architecture (ports and adapters)
 - **Infrastructure:** Relational database (Postgres with postGIS)
-- Please find available for download a Postman request collection and the database.
+- It's also available in this repository a Postman request collection (partners_floor.postman_collection.json) and a database (partners_location.sql).
 
 ## Requirements
 - Golang [installation](https://www.youtube.com/watch?v=0dnTNElroug)
