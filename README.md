@@ -17,8 +17,18 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 - Postman (optional) [installation](https://www.youtube.com/watch?v=3eHJkcA8mTs), [import collection](https://www.youtube.com/watch?v=bzquMXmCLUQ)
 
 ## Performance
-abc Why a spacial database and why everything in the query...
-sphera
+The request to search for partners needs to find the "best match" which its quality is determined first on
+partner's average rating and second by customer-partner distance. Consequently, the distance between client and partner is calculated for each request since the client coordinates are previously unknown.
+
+The solution with best performance for this microservice specification is the use of a spatial database in which the distance between client and partner is calculated using the ST_DistanceSphere function according to their coordinates. The database query also:
+- considers the combination of flooring services the client wants (wood, tiles and/or carpet, i.e.),
+- if the client location is in the partner's great circle operating area,
+- best rating partners,
+- max. total number of partners and
+- the database returns the selected partners ordered by rating (desc) and client-partner distance (asc).
+
+This results in a "lean" floor domain because multiple business rules are in the query. On the other hand, it would not make sense to migrate part of the business rules from the query to the domain and lose performance.
+Last but not least, 
 
 ## Package structure
 
@@ -87,7 +97,6 @@ git clone https://github.com/yuripiffer/customer_partner-match.git
 4. 
 
 ## Create your own database and tables
-
 
 Create a spacial postGIS database (make sure to have postGIS installed):
 ```azure
