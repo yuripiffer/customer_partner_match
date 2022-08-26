@@ -1,6 +1,6 @@
 
-## THE customer_partner_match MICROSERVICE
-This is a golang microservice for customers to find the right craftsman partner according to best rating and smallest distance.
+## THE MICROSERVICE
+This customer_partner_match repository is a golang microservice for customers to find the right craftsman partner according to best rating and smallest distance.
 
 A usecase for flooring partners experienced in wood, tiles and/or carpet has been implemented as a POC. Whatsoever, this microservice is prepare for new usecases implementation.
 
