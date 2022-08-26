@@ -108,10 +108,10 @@ OBS: distance in meters
 - wrong input fields, invalid phone number (exemple):
 ```
 {
-    "err": "latitude, longitude, floor_area",
+    "err": "invalid phone number regex",
     "message": "missing/invalid field(s)",
-    "errorKey": "error.InputError",
-    "status": 400
+    "errorKey": "error.InternalServerError",
+    "status": 500
 }
 ```
 **status 500**
