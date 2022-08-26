@@ -71,7 +71,7 @@ customer_partner_match/
 
 Response
 
-*status 200* (example):
+**status 200** (example):
 ```
 {
     "data": [
@@ -103,10 +103,8 @@ Response
 }
 OBS: distance in meters
 ```
-*status 400*
-- wrong phone number,
 
-*status 400*
+**status 400**
 - wrong input fields, invalid phone number (exemple):
 ```
 {
@@ -116,7 +114,7 @@ OBS: distance in meters
     "status": 400
 }
 ```
-*status 400*
+**status 500**
 - database error
 -----
 ### Search flooring partners
