@@ -31,7 +31,26 @@ This results in a "lean" floor domain because multiple business rules are in the
 Last but not least, 
 
 ## Package structure
-
+```
+customer_partner_match/
+|-- domain/
+|     |-- floor/
+|-- infrastrucutre/
+|     |-- config/
+|     |-- db/
+|-- model/
+|-- pkg/
+|-- ports/
+|     |-- input/
+|     |-- output/
+|-- web/
+|     |-- v1/
+|     |-- routes.go
+|-- .env
+|-- go.mod
+|-- main.go
+|-- README.md
+```
 
 # Endpoints
 ### Register a new flooring craftsman
