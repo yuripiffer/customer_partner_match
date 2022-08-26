@@ -70,6 +70,7 @@ customer_partner_match/
 > abc abc abc
 
 Response
+
 *status 200* (example):
 ```
 {
@@ -102,7 +103,21 @@ Response
 }
 OBS: distance in meters
 ```
+*status 400*
+- wrong phone number,
 
+*status 400*
+- wrong input fields, invalid phone number (exemple):
+```
+{
+    "err": "latitude, longitude, floor_area",
+    "message": "missing/invalid field(s)",
+    "errorKey": "error.InputError",
+    "status": 400
+}
+```
+*status 400*
+- database error
 -----
 ### Search flooring partners
 - path: **"/floor-partners"**
