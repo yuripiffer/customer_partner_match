@@ -134,8 +134,37 @@ OBS: distance in meters
 
 > abc abc abc
 
-*Response*
+Response
 
+**status 200** (example):
+``` 
+{
+    "data": {
+        "id": "153e46ed-8860-4afb-896e-a1ba490884d3",
+        "partner": "TILES AND CARPET COMPANY",
+        "rating": 4,
+        "operating_radius": 30000,
+        "latitude": 52.520008,
+        "longitude": 13.404954,
+        "wood": true,
+        "carpet": true,
+        "tiles": true
+    }
+}
+```
+
+**status 400**
+- wrong input fields (exemple):
+```
+{
+    "err": "latitude, longitude, floor_area",
+    "message": "missing/invalid field(s)",
+    "errorKey": "error.InputError",
+    "status": 400
+}
+```
+**status 500**
+- database error
 -----
 
 
