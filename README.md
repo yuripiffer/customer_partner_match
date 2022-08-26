@@ -182,7 +182,7 @@ API_PORT=85
 A simple way to get started is to 
 1. download this repository:
 ```
-git clone https://github.com/yuripiffer/customer_partner-match.git
+git clone https://github.com/yuripiffer/customer_partner_match.git
 ```
 2. Start PGadmin 4 and import the database (or create your database),
 3. Export the environment variables listed above (adapt if needed) and run the customer_partner-match microsservice.
