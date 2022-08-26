@@ -17,7 +17,7 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 - Postman (optional) [installation](https://www.youtube.com/watch?v=3eHJkcA8mTs), [import collection](https://www.youtube.com/watch?v=bzquMXmCLUQ)
 
 
-## Endpoints
+# Endpoints
 ### Register a new flooring craftsman
 - path: **"/floor-partner/new"**
 - method: POST
