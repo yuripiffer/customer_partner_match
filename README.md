@@ -4,11 +4,12 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 
 
 ## Basic Info
-**Language:** Golang 1.18
-**Software Architecture:** Clean Architecture (ports and adaptors)
-**Infrastructure:** Postgres (with postGIS)
-Please find attached a request collection and the database.
+- **Language:** Golang 1.18
+- **Software Architecture:** Clean Architecture (ports and adaptors)
+- **Infrastructure:** Postgres (with postGIS)
+- Please find available for download a Postman request collection and the database.
 
 ## Requirements
-- Golang,
-- Postgres with Postgis 
+- Golang [installation](https://www.youtube.com/watch?v=0dnTNElroug)
+- Postgres with Postgis (using PGAdmin 4) [instalation](https://www.youtube.com/watch?v=LhKj-_-CCfY), [import database](https://www.youtube.com/watch?v=C30q5i1e9KE)
+- Postman (optional) [installation](https://www.youtube.com/watch?v=3eHJkcA8mTs), [import collection](https://www.youtube.com/watch?v=bzquMXmCLUQ)
