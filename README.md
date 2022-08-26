@@ -173,7 +173,7 @@ Response
 ```azure
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=partners
+DB_NAME=partners_location
 DB_USER=postgres
 DB_PASSWORD=1234
 API_PORT=85
