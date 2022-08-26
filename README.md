@@ -69,7 +69,39 @@ customer_partner_match/
 
 > abc abc abc
 
-*Response*
+Response
+*status 200* (example):
+```
+{
+    "data": [
+        {
+            "id": "d82ba7cf-527f-4cd5-8119-56ac9f8ca719",
+            "partner": "KNOLL CRAFTSMAN",
+            "rating": 4.6,
+            "distance": 111,
+            "latitude": -12.402,
+            "longitude": 40.201
+        },
+        {
+            "id": "6352bc86-6ed7-4c28-b34d-60dfd1385445",
+            "partner": "WOODFLOORS COMPANY",
+            "rating": 4.6,
+            "distance": 2540,
+            "latitude": -12.401298,
+            "longitude": 40.202932
+        },
+	{
+            "id": "4772bc86-6ed7-4c28-b34d-60dfd1381234",
+            "partner": "TIMBER & TILES",
+            "rating": 4.2,
+            "distance": 245,
+            "latitude": -12.402,
+            "longitude": 40.2012
+        }
+    ]
+}
+OBS: distance in meters
+```
 
 -----
 ### Search flooring partners
