@@ -29,3 +29,18 @@ func getDBConnectionString(host string, port string, user string, name string, p
 	return fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
 		host, port, user, name, password)
 }
+
+//Only for documentation
+func createFloorPartnerTableQuery() {
+	_ = fmt.Sprint(`
+	CREATE TABLE floor_partner_table (
+		id UUID primary key, 
+		partner VARCHAR(255),
+		rating numeric not null check (rating between 1 and 5), 
+		operating_radius numeric CHECK (operating_radius > 0), 
+		latitude numeric not null check (latitude between -180 and 180), 
+		longitude numeric not null check (longitude between -180 and 180), 
+		wood bool, 
+		carpet bool, 
+		tiles bool);`)
+}
