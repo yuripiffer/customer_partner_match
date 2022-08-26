@@ -2,7 +2,7 @@
 ## THE MICROSERVICE
 This customer_partner_match repository is a golang microservice for customers to find the right craftsman partner according to best rating and smallest distance.
 
-A usecase for flooring partners experienced in wood, tiles and/or carpet has been implemented as a POC. Whatsoever, this microservice is prepare for new usecases implementation.
+A use case for flooring partners experienced in wood, tiles and/or carpet has been implemented as a POC. Moreover, this microservice is prepared for new use cases implementation.
 
 
 ## Basic Info
@@ -17,10 +17,9 @@ A usecase for flooring partners experienced in wood, tiles and/or carpet has bee
 - Postman (optional) [installation](https://www.youtube.com/watch?v=3eHJkcA8mTs), [import collection](https://www.youtube.com/watch?v=bzquMXmCLUQ)
 
 ## Performance
-When a client searches for partners the "best match" quality is determined first on
-partner's average rating and second by customer-partner distance. Consequently, the distance between client and partner is calculated for each request since the client coordinates are previously unknown.
+When a client searches for partners the "best match" quality is determined first on the partner's average rating and second by customer-partner distance. Consequently, the distance between client and partner is calculated for each request since the client coordinates are previously unknown.
 
-The solution with best performance for this microservice specification is the use of a spatial database in which the distance between client and partner is calculated using the ST_DistanceSphere function according to their coordinates. The database query also:
+The solution with the best performance for this microservice specification is the use of a spatial database in which the distance between client and partner is calculated using the ST_DistanceSphere function according to their coordinates. The database query also:
 - considers the combination of flooring services the client wants (wood, tiles and/or carpet, i.e.),
 - if the client location is in the partner's great circle operating area,
 - best rating partners,
@@ -67,7 +66,7 @@ customer_partner_match/
   - **carpet** (bool): indicates whether this craftsman offers carpet flooring (optional),
 
 
-> After body fields validation, creates an id, transforms the partner's name to uppercase and attributes a default rating (4.0) to the craftsman.
+> After body fields validation, creates an id, transforms the partner's name to uppercase and attributes a default rating (4.0) to the partner.
 
 Response
 
@@ -132,7 +131,7 @@ OBS: distance in meters
   - **carpet** (bool): returns craftsman with experience in carpet flooring (optional),
 - body: none
 
-> After param fields validation, searches for best partners according to best rating and smallest distance. At least one flooring type (wood, tiles or carpet) needs to be true.
+> After param fields validation searches for best partners according to best rating and smallest distance. At least one flooring type (wood, tiles or carpet) needs to be true.
 
 Response
 
@@ -185,7 +184,7 @@ A simple way to get started is to
 git clone https://github.com/yuripiffer/customer_partner_match.git
 ```
 2. Start PGadmin 4 and import the database (or create your database),
-3. Export the environment variables listed above (adapt if needed) and run the customer_partner-match microsservice.
+3. Export the environment variables listed above (adapt if needed) and run the customer_partner-match microservice.
 5. Import the Postman collection and test the endpoints.
 
 ## Create your own database and tables
