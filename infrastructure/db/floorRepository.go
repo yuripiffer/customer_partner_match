@@ -49,7 +49,13 @@ func (r *Repository) SelectPartners(ctx context.Context, inputDTO model.FloorReq
 	var floorPartners []model.FloorPartnerResponseDTO
 	for rows.Next() {
 		var floorPartner model.FloorPartnerResponseDTO
-		err = rows.Scan(&floorPartner)
+		err = rows.Scan(
+			&floorPartner.ID,
+			&floorPartner.Partner,
+			&floorPartner.Rating,
+			&floorPartner.Latitude,
+			&floorPartner.Longitude,
+			&floorPartner.Distance)
 		if err != nil {
 			return nil, pkgError.NewServerError("row scan error", err)
 		}
@@ -64,7 +70,7 @@ func (r *Repository) buildPersistPartnerQuery(inputDTO model.NewFloorPartnerDTO)
 		%s
 		(id, partner, rating, operating_radius, latitude, longitude, wood, carpet, tiles)
 	VALUES
-		(%s, %s, %v, %v, %v, %v, %v, %v, %v);
+		('%s', '%s', %v, %v, %v, %v, %v, %v, %v);
 	`, r.table,
 		inputDTO.ID,
 		inputDTO.Partner,
@@ -75,7 +81,6 @@ func (r *Repository) buildPersistPartnerQuery(inputDTO model.NewFloorPartnerDTO)
 		inputDTO.Wood,
 		inputDTO.Carpet,
 		inputDTO.Tiles)
-
 	return query
 }
 
@@ -104,10 +109,10 @@ func (r *Repository) buildSelectPartnersQuery(inputDTO model.FloorRequestDTO) st
 	SELECT
 		id,
 		partner,
-		rating,
+		CAST(rating AS DECIMAL(2, 1)),
 		latitude,
 		longitude,
-		(select %s) as distance
+		(select ROUND(CAST(%s AS NUMERIC),0)) as distance
 	FROM
   		%s
 	WHERE

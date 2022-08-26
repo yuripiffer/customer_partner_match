@@ -7,6 +7,7 @@ import (
 	"customer_partner_match/pkg/webResponse"
 	"customer_partner_match/ports/input"
 	"errors"
+	"github.com/gorilla/schema"
 	"math"
 	"net/http"
 )
@@ -31,7 +32,7 @@ func (h *FloorV1Handler) CreatePartner(w http.ResponseWriter, r *http.Request) {
 
 	partner, appError := h.UseCase.CreatePartner(r.Context(), requestDTO)
 	if appError != nil {
-		//TODO treat errors
+		webResponse.ERROR(w, http.StatusInternalServerError, appError)
 		return
 	}
 	webResponse.JSON(w, http.StatusOK, partner)
@@ -39,9 +40,14 @@ func (h *FloorV1Handler) CreatePartner(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *FloorV1Handler) FindPartners(w http.ResponseWriter, r *http.Request) {
-	requestDTO := model.FloorRequestDTO{}
-	_, appError := pkg.UnmarshalDto(w, r, &requestDTO)
-	if appError != nil {
+	if err := r.ParseForm(); err != nil {
+		webResponse.ERROR(w, http.StatusBadRequest, pkgError.NewInputError("invalid params)", err))
+		return
+	}
+
+	requestDTO := new(model.FloorRequestDTO)
+	if err := schema.NewDecoder().Decode(requestDTO, r.Form); err != nil {
+		webResponse.ERROR(w, http.StatusBadRequest, pkgError.NewInputError("invalid params)", err))
 		return
 	}
 
@@ -52,10 +58,15 @@ func (h *FloorV1Handler) FindPartners(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	floorPartners, appError := h.UseCase.FindPartners(r.Context(), requestDTO)
+	floorPartners, appError := h.UseCase.FindPartners(r.Context(), *requestDTO)
 	if appError != nil {
-		//TODO treat errors
-		return
+		switch appError.GetErrorKey() {
+		case pkgError.InputError:
+			webResponse.ERROR(w, http.StatusBadRequest, appError)
+		default:
+			webResponse.ERROR(w, http.StatusInternalServerError, appError)
+			return
+		}
 	}
 	webResponse.JSON(w, http.StatusOK, floorPartners)
 	return
@@ -63,10 +74,10 @@ func (h *FloorV1Handler) FindPartners(w http.ResponseWriter, r *http.Request) {
 
 func checkNewPartnerDTO(requestDTO model.NewFloorPartnerDTO) string {
 	missingFields := ""
-	if math.Abs(requestDTO.Latitude) > 180. {
+	if requestDTO.Latitude == 0 || math.Abs(requestDTO.Latitude) > 180. {
 		missingFields += "latitude, "
 	}
-	if math.Abs(requestDTO.Longitude) > 180. {
+	if requestDTO.Latitude == 0 || math.Abs(requestDTO.Longitude) > 180. {
 		missingFields += "longitude, "
 	}
 	if requestDTO.Partner == "" {
@@ -76,7 +87,7 @@ func checkNewPartnerDTO(requestDTO model.NewFloorPartnerDTO) string {
 		missingFields += "operating_radius, "
 	}
 
-	if (requestDTO.Wood && requestDTO.Tiles && requestDTO.Carpet) == false {
+	if (requestDTO.Wood || requestDTO.Tiles || requestDTO.Carpet) == false {
 		missingFields += "no material informed (wood, tiles and/or carpet), "
 	}
 	if missingFields != "" {
@@ -85,12 +96,12 @@ func checkNewPartnerDTO(requestDTO model.NewFloorPartnerDTO) string {
 	return ""
 }
 
-func checkFindPartnersDTO(requestDTO model.FloorRequestDTO) string {
+func checkFindPartnersDTO(requestDTO *model.FloorRequestDTO) string {
 	missingFields := ""
-	if math.Abs(requestDTO.Latitude) > 180. {
+	if requestDTO.Latitude == 0 || math.Abs(requestDTO.Latitude) > 180. {
 		missingFields += "latitude, "
 	}
-	if math.Abs(requestDTO.Longitude) > 180. {
+	if requestDTO.Longitude == 0 || math.Abs(requestDTO.Longitude) > 180. {
 		missingFields += "longitude, "
 	}
 	if requestDTO.FloorArea <= 0 {
@@ -99,7 +110,7 @@ func checkFindPartnersDTO(requestDTO model.FloorRequestDTO) string {
 	if requestDTO.Phone == "" {
 		missingFields += "phone, "
 	}
-	if (requestDTO.Wood && requestDTO.Tiles && requestDTO.Carpet) == false {
+	if (requestDTO.Wood || requestDTO.Tiles || requestDTO.Carpet) == false {
 		missingFields += "no material selected (wood, tiles and/or carpet), "
 	}
 	if missingFields != "" {
