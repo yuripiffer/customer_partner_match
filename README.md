@@ -22,16 +22,13 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 - headers: none
 - params: none
 - body: 
-  - document (string): patient's document
-  - exam_type (int): the exam code
-
-    partner (string): name of the partner/company,
-    operating_radius (int): partner's great circle ray (meters) regarding its location,
-    latitude (float64): geographical partner's coordinate (varying from -180 to 180),
-    longitude (float64): geographical partner's coordinate (varying from -180 to 180),
-    wood (bool): indicates whether this craftsman offers hardwood flooring (optional),
-    tiles (bool): indicates whether this craftsman offers tiles flooring (optional),
-    carpet (bool): indicates whether this craftsman offers carpet flooring (optional),
+  - partner (string): name of the partner/company,
+  - operating_radius (int): partner's great circle ray (meters) regarding its location,
+  - latitude (float64): geographical partner's coordinate (varying from -180 to 180),
+  - longitude (float64): geographical partner's coordinate (varying from -180 to 180),
+  - wood (bool): indicates whether this craftsman offers hardwood flooring (optional),
+  - tiles (bool): indicates whether this craftsman offers tiles flooring (optional),
+  - carpet (bool): indicates whether this craftsman offers carpet flooring (optional),
 
 
 > abc abc abc
