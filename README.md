@@ -1,6 +1,6 @@
 [UNDER CONSTRUCTION]
 ## customer_partner_match microservice
-This is a golang microservice for customers to find the right craftsman partner according to rating and distance.
+This is a golang microservice for customers to find the right craftsman partner according to best rating and smallest distance.
 
 A usecase for flooring partners experienced in wood, tiles and/or carpet has been implemented as a POC. Whatsoever, this microservice is prepare for new usecases implementation.
 
@@ -67,7 +67,7 @@ customer_partner_match/
   - **carpet** (bool): indicates whether this craftsman offers carpet flooring (optional),
 
 
-> abc abc abc
+> After body fields validation, creates an id, transforms the partner's name to uppercase and attributes a default rating (4.0) to the craftsman.
 
 Response
 
@@ -132,7 +132,7 @@ OBS: distance in meters
   - **carpet** (bool): returns craftsman with experience in carpet flooring (optional),
 - body: none
 
-> abc abc abc
+> After param fields validation, searches for best partners according to best rating and smallest distance. At least one flooring type (wood, tiles or carpet) needs to be true.
 
 Response
 
