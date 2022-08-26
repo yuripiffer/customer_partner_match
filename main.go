@@ -26,8 +26,8 @@ func main() {
 
 	r := mux.NewRouter()
 	web.ConfigureFloorPartnerRoutes(floorPartnerUseCase, r)
-	fmt.Println("Server started. Listen to port :85")
-	err := http.ListenAndServe(":85", r)
+	fmt.Printf("Server started. Listen to port :%v\n", config.ENV.APIPort)
+	err := http.ListenAndServe(fmt.Sprintf(":%v", config.ENV.APIPort), r)
 	if err != nil {
 		panic(err)
 	}

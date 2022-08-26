@@ -11,6 +11,7 @@ type environment struct {
 	DBName     string `env:"DB_NAME"`
 	DBUser     string `env:"DB_USER"`
 	DBPassword string `env:"DB_PASSWORD"`
+	APIPort    int    `env:"API_PORT"`
 }
 
 var ENV environment
