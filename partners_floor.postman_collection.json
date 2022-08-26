@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "65f8ccf5-fc48-424b-b132-75d7ace4e92e",
+		"name": "partners_floor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create floor partner",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partner\": \"Siegen Craftsman\",\r\n    \"operating_radius\": 90000,\r\n    \"latitude\": 52.1085321,\r\n    \"longitude\": 13.18231,\r\n    \"wood\": true,\r\n    \"tiles\": true,\r\n    \"carpet\": true\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:85/floor-partner/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "85",
+					"path": [
+						"floor-partner",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get floor partners",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:85/floor-partners?latitude=52.52&longitude=13.40&floor_area=102.55&phone=5548996593944&total_partners=10&wood=true&carpet=true&tiles=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "85",
+					"path": [
+						"floor-partners"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "52.52"
+						},
+						{
+							"key": "longitude",
+							"value": "13.40"
+						},
+						{
+							"key": "floor_area",
+							"value": "102.55"
+						},
+						{
+							"key": "phone",
+							"value": "5548996593944"
+						},
+						{
+							"key": "total_partners",
+							"value": "10"
+						},
+						{
+							"key": "wood",
+							"value": "true"
+						},
+						{
+							"key": "carpet",
+							"value": "true"
+						},
+						{
+							"key": "tiles",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
