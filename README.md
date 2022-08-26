@@ -20,6 +20,9 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 abc Why a spacial database and why everything in the query...
 sphera
 
+## Package structure
+
+
 # Endpoints
 ### Register a new flooring craftsman
 - path: **"/floor-partner/new"**
@@ -84,6 +87,26 @@ git clone https://github.com/yuripiffer/customer_partner-match.git
 4. 
 
 ## Create your own database and tables
+
+
+Create a spacial postGIS database (make sure to have postGIS installed):
+```azure
+abc
+```
+
+Create partner's tables:
+```azure
+CREATE TABLE {choose a table name} (
+		id UUID primary key, 
+		partner VARCHAR(255),
+		rating numeric not null check (rating between 1 and 5), 
+		operating_radius numeric CHECK (operating_radius > 0), 
+		latitude numeric not null check (latitude between -180 and 180), 
+		longitude numeric not null check (longitude between -180 and 180), 
+		wood bool, 
+		carpet bool, 
+		tiles bool);
+```
 
 ## License
 This is an open-source and free software release.
