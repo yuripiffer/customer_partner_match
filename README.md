@@ -83,6 +83,8 @@ git clone https://github.com/yuripiffer/customer_partner-match.git
 3. Run the customer_partner-match.
 4. 
 
+## Create your own database and tables
+
 ## License
 This is an open-source and free software release.
 
