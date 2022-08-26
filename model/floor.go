@@ -24,7 +24,7 @@ type NewFloorPartnerDTO struct {
 	ID              string  `json:"id"`
 	Partner         string  `json:"partner"`
 	Rating          float64 `json:"rating"`
-	OperatingRadius float64 `json:"operating_radius"`
+	OperatingRadius int     `json:"operating_radius"`
 	Latitude        float64 `json:"latitude"`
 	Longitude       float64 `json:"longitude"`
 	Wood            bool    `json:"wood,omitempty"`
