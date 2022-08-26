@@ -1,13 +1,13 @@
 [UNDER CONSTRUCTION]
 ## customer_partner_match microservice
-This is a golang microservice for customers to find the right craftsman according to rating and distance.
+This is a golang microservice for customers to find the right craftsman partner according to rating and distance.
 
-An usecase for flooring partners experienced in wood, tiles and/or carpet has been implemented as a POC. Whatsoever, this microservice is prepare for new usecases implementation.
+A usecase for flooring partners experienced in wood, tiles and/or carpet has been implemented as a POC. Whatsoever, this microservice is prepare for new usecases implementation.
 
 
 ## Basic Info
 - **Language:** Golang 1.18
-- **Software Architecture:** Clean Architecture (ports and adaptors)
+- **Software Architecture:** Clean Architecture (ports and adapters)
 - **Infrastructure:** Relational database (Postgres with postGIS)
 - Please find available for download a Postman request collection and the database.
 
@@ -34,10 +34,10 @@ Last but not least,
 ```
 customer_partner_match/
 |-- domain/
-|     |-- floor/
+|     |-- floor/ 
 |-- infrastrucutre/
-|     |-- config/
-|     |-- db/
+|     |-- config/ 
+|     |-- db/ 
 |-- model/
 |-- pkg/
 |-- ports/
