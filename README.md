@@ -15,6 +15,7 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 - Postgres with PostGIS (using PGAdmin 4) [installation](https://www.youtube.com/watch?v=LhKj-_-CCfY), [import database](https://www.youtube.com/watch?v=C30q5i1e9KE)
 - Postman (optional) [installation](https://www.youtube.com/watch?v=3eHJkcA8mTs), [import collection](https://www.youtube.com/watch?v=bzquMXmCLUQ)
 
+
 ## Endpoints
 ### Register a new flooring craftsman
 - path: "/floor-partner/new"
@@ -32,4 +33,22 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 
 
 > abc abc abc
+
+*Response*
+
 -----
+### Search flooring partners
+- path: "/floor-partners"
+- method: GET
+- headers: none
+- params:
+  - **latitude** (float): geographical customer's coordinate (varying from -180 to 180),
+  - **longitude** (float): geographical customer's coordinate (varying from -180 to 180),
+  - **floor_area** (float): total floor area (m²),
+  - **phone** (string): customer's phone,
+  - **total_partners** (int): indicates up to how many partners must be returned (optional, default value = 15),
+  - **wood** (bool): returns craftsman with experience in hardwood flooring (optional),
+  - **tiles** (bool): returns craftsman with experience in tiles flooring (optional),
+  - **carpet** (bool): returns craftsman with experience in carpet flooring (optional),
+- 
+- body:none
