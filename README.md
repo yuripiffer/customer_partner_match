@@ -169,13 +169,14 @@ Response
 
 
 # Installation
-### Environment Variables
+### Environment Variables (example)
 ```azure
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=partners
 DB_USER=postgres
 DB_PASSWORD=1234
+API_PORT=85
 ```
 ### Running locally
 A simple way to get started is to 
@@ -183,10 +184,9 @@ A simple way to get started is to
 ```
 git clone https://github.com/yuripiffer/customer_partner-match.git
 ```
-... database....
-2. Export the environment variables listed above.
-3. Run the customer_partner-match.
-4. 
+2. Start PGadmin 4 and import the database (or create your database),
+3. Export the environment variables listed above (adapt if needed) and run the customer_partner-match microsservice.
+5. Import the Postman collection and test the endpoints.
 
 ## Create your own database and tables
 
