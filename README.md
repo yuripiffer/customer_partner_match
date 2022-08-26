@@ -18,7 +18,7 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 
 ## Endpoints
 ### Register a new flooring craftsman
-- path: "/floor-partner/new"
+- path: **"/floor-partner/new"**
 - method: POST
 - headers: none
 - params: none
@@ -38,7 +38,7 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 
 -----
 ### Search flooring partners
-- path: "/floor-partners"
+- path: **"/floor-partners"**
 - method: GET
 - headers: none
 - params:
@@ -50,5 +50,14 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
   - **wood** (bool): returns craftsman with experience in hardwood flooring (optional),
   - **tiles** (bool): returns craftsman with experience in tiles flooring (optional),
   - **carpet** (bool): returns craftsman with experience in carpet flooring (optional),
-- 
-- body:none
+- body: none
+
+> abc abc abc
+
+*Response*
+
+-----
+
+## Performance
+abc
+
