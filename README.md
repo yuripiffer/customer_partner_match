@@ -1,3 +1,4 @@
+[UNDER CONSTRUCTION]
 # customer_partner_match
 This is a golang microservice for customers to find the right craftsman according to rating and distance.
 
@@ -59,5 +60,29 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 -----
 
 ## Performance
-abc
+abc Why a spacial database and why everything in the query...
+sphera
+
+# Installation
+### Environment Variables
+```azure
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=partners
+DB_USER=postgres
+DB_PASSWORD=1234
+```
+### Running locally
+A simple way to get started is to 
+1. download this repository:
+```
+git clone https://github.com/yuripiffer/customer_partner-match.git
+```
+... database....
+2. Export the environment variables listed above.
+3. Run the customer_partner-match.
+4. 
+
+## License
+This is an open-source and free software release.
 
