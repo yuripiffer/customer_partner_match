@@ -20,8 +20,7 @@ func main() {
 		config.ENV.DBPassword)
 	defer db.CloseDBConnection(dbConnection)
 
-	//floorPartnerRepository := db.NewFloorPartnerRepository(dbConnection, "floor_partner_table")
-	floorPartnerRepository := db.NewFloorPartnerRepository(dbConnection, "lala")
+	floorPartnerRepository := db.NewFloorPartnerRepository(dbConnection, "floor_partner_table")
 
 	floorPartnerUseCase := floor.New(floorPartnerRepository)
 
