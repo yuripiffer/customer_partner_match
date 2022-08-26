@@ -28,7 +28,6 @@ The solution with best performance for this microservice specification is the us
 - the database returns the selected partners ordered by rating (desc) and client-partner distance (asc).
 
 This results in a "lean" floor domain because multiple business rules are in the query. On the other hand, it would not make sense to migrate part of the business rules from the query to the domain and lose performance.
-Last but not least, 
 
 ## Package structure
 ```
