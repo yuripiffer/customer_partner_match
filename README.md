@@ -7,7 +7,7 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 ## Basic Info
 - **Language:** Golang 1.18
 - **Software Architecture:** Clean Architecture (ports and adaptors)
-- **Infrastructure:** Postgres (with postGIS)
+- **Infrastructure:** Relational database (Postgres with postGIS)
 - Please find available for download a Postman request collection and the database.
 
 ## Requirements
