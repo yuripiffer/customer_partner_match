@@ -1,5 +1,5 @@
 [UNDER CONSTRUCTION]
-# customer_partner_match
+## customer_partner_match microservice
 This is a golang microservice for customers to find the right craftsman according to rating and distance.
 
 An usecase for flooring partners experienced in wood, tiles and/or carpet has been implemented as a POC. Whatsoever, this microservice is prepare for new usecases implementation.
@@ -16,6 +16,9 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 - Postgres with PostGIS (using PGAdmin 4) [installation](https://www.youtube.com/watch?v=LhKj-_-CCfY), [import database](https://www.youtube.com/watch?v=C30q5i1e9KE)
 - Postman (optional) [installation](https://www.youtube.com/watch?v=3eHJkcA8mTs), [import collection](https://www.youtube.com/watch?v=bzquMXmCLUQ)
 
+## Performance
+abc Why a spacial database and why everything in the query...
+sphera
 
 # Endpoints
 ### Register a new flooring craftsman
@@ -59,9 +62,6 @@ An usecase for flooring partners experienced in wood, tiles and/or carpet has be
 
 -----
 
-## Performance
-abc Why a spacial database and why everything in the query...
-sphera
 
 # Installation
 ### Environment Variables
