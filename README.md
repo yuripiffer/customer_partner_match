@@ -26,7 +26,7 @@ The solution with the best performance for this microservice specification is th
 - max. total number of partners and
 - the database returns the selected partners ordered by rating (desc) and client-partner distance (asc).
 
-This results in a "lean" floor domain because multiple business rules are in the query. On the other hand, it would not make sense to migrate part of the business rules from the query to the domain and lose performance.
+This results in a "lean" floor use case domain because multiple business rules are in the query. On the other hand, it would not make sense to migrate part of the business rules from the query to the domain and lose performance.
 
 ## Package structure
 ```
@@ -71,6 +71,55 @@ customer_partner_match/
 Response
 
 **status 200** (example):
+``` 
+{
+    "data": {
+        "id": "153e46ed-8860-4afb-896e-a1ba490884d3",
+        "partner": "TILES AND CARPET COMPANY",
+        "rating": 4,
+        "operating_radius": 30000,
+        "latitude": 52.520008,
+        "longitude": 13.404954,
+        "wood": true,
+        "carpet": true,
+        "tiles": true
+    }
+}
+```
+
+**status 400**
+- wrong input fields, invalid phone number (exemple):
+```
+{
+    "err": "invalid phone number regex",
+    "message": "missing/invalid field(s)",
+    "errorKey": "error.InternalServerError",
+    "status": 500
+}
+```
+**status 500**
+- database error
+-----
+### Search flooring partners
+- path: **"/floor-partners"**
+- method: GET
+- headers: none
+- params:
+  - **latitude** (float): geographical customer's coordinate (varying from -180 to 180),
+  - **longitude** (float): geographical customer's coordinate (varying from -180 to 180),
+  - **floor_area** (float): total floor area (m²),
+  - **phone** (string): customer's phone,
+  - **total_partners** (int): indicates up to how many partners must be returned (optional, default value = 15),
+  - **wood** (bool): returns craftsman with experience in hardwood flooring (optional),
+  - **tiles** (bool): returns craftsman with experience in tiles flooring (optional),
+  - **carpet** (bool): returns craftsman with experience in carpet flooring (optional),
+- body: none
+
+> After param fields validation, searches for partners according to best rating and smallest distance. At least one flooring type (wood, tiles or carpet) needs to be informed as true.
+
+Response
+
+**status 200** (example):
 ```
 {
     "data": [
@@ -103,54 +152,6 @@ Response
 OBS: distance in meters
 ```
 
-**status 400**
-- wrong input fields, invalid phone number (exemple):
-```
-{
-    "err": "invalid phone number regex",
-    "message": "missing/invalid field(s)",
-    "errorKey": "error.InternalServerError",
-    "status": 500
-}
-```
-**status 500**
-- database error
------
-### Search flooring partners
-- path: **"/floor-partners"**
-- method: GET
-- headers: none
-- params:
-  - **latitude** (float): geographical customer's coordinate (varying from -180 to 180),
-  - **longitude** (float): geographical customer's coordinate (varying from -180 to 180),
-  - **floor_area** (float): total floor area (m²),
-  - **phone** (string): customer's phone,
-  - **total_partners** (int): indicates up to how many partners must be returned (optional, default value = 15),
-  - **wood** (bool): returns craftsman with experience in hardwood flooring (optional),
-  - **tiles** (bool): returns craftsman with experience in tiles flooring (optional),
-  - **carpet** (bool): returns craftsman with experience in carpet flooring (optional),
-- body: none
-
-> After param fields validation searches for best partners according to best rating and smallest distance. At least one flooring type (wood, tiles or carpet) needs to be true.
-
-Response
-
-**status 200** (example):
-``` 
-{
-    "data": {
-        "id": "153e46ed-8860-4afb-896e-a1ba490884d3",
-        "partner": "TILES AND CARPET COMPANY",
-        "rating": 4,
-        "operating_radius": 30000,
-        "latitude": 52.520008,
-        "longitude": 13.404954,
-        "wood": true,
-        "carpet": true,
-        "tiles": true
-    }
-}
-```
 
 **status 400**
 - wrong input fields (exemple):
@@ -184,7 +185,7 @@ A simple way to get started is to
 git clone https://github.com/yuripiffer/customer_partner_match.git
 ```
 2. Start PGadmin 4 and import the database (or create your database),
-3. Export the environment variables listed above (adapt if needed) and run the customer_partner-match microservice.
+3. Export the environment variables listed above (adapt if needed) and run the customer_partner_match microservice.
 5. Import the Postman collection and test the endpoints.
 
 ## Create your own database and tables
