@@ -91,7 +91,7 @@ OBS: operating_radius in meters
 - wrong input fields (example):
 ```
 {
-    "err": "latitude, longitude, floor_area",
+    "err": "latitude, longitude",
     "message": "missing/invalid field(s)",
     "errorKey": "error.InputError",
     "status": 400
