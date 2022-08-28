@@ -39,7 +39,7 @@ func (s *service) FindPartners(ctx context.Context, inputDTO model.FloorRequestD
 	[]model.FloorPartnerResponseDTO, pkgError.AppError) {
 
 	if !pkg.ValidatePhoneNumber(inputDTO.Phone) {
-		return nil, pkgError.NewServerError("missing/invalid field(s)", errors.New("invalid phone number regex"))
+		return nil, pkgError.NewInputError("missing/invalid field(s)", errors.New("invalid phone number regex"))
 	}
 
 	floorPartners, appError := s.floorRepository.SelectPartners(ctx, inputDTO)

@@ -158,8 +158,8 @@ OBS: distance in meters
 {
     "err": "invalid phone number regex",
     "message": "missing/invalid field(s)",
-    "errorKey": "error.InternalServerError",
-    "status": 500
+    "errorKey": "error.InputError",
+    "status": 400
 }
 ```
 
