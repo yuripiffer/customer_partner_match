@@ -85,16 +85,16 @@ Response
         "tiles": true
     }
 }
+OBS: operating_radius in meters
 ```
-
 **status 400**
-- wrong input fields, invalid phone number (exemple):
+- wrong input fields (example):
 ```
 {
-    "err": "invalid phone number regex",
+    "err": "latitude, longitude, floor_area",
     "message": "missing/invalid field(s)",
-    "errorKey": "error.InternalServerError",
-    "status": 500
+    "errorKey": "error.InputError",
+    "status": 400
 }
 ```
 **status 500**
@@ -152,17 +152,18 @@ Response
 OBS: distance in meters
 ```
 
-
 **status 400**
-- wrong input fields (exemple):
+- wrong input fields, invalid phone number (example):
 ```
 {
-    "err": "latitude, longitude, floor_area",
+    "err": "invalid phone number regex",
     "message": "missing/invalid field(s)",
-    "errorKey": "error.InputError",
-    "status": 400
+    "errorKey": "error.InternalServerError",
+    "status": 500
 }
 ```
+
+
 **status 500**
 - database error
 -----
