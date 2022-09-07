@@ -1,4 +1,4 @@
-package pkgError
+package pkg_error
 
 type ErrorStruct struct {
 	AppError

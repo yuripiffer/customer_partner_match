@@ -1,8 +1,8 @@
 package pkg
 
 import (
-	"customer_partner_match/pkg/pkgError"
-	"customer_partner_match/pkg/webResponse"
+	"customer_partner_match/pkg/pkg_error"
+	"customer_partner_match/pkg/web_response"
 	"encoding/json"
 	"gopkg.in/validator.v2"
 	"io/ioutil"
@@ -18,11 +18,11 @@ type dtoFieldInfo struct {
 	dtoUnmarshalTag string
 }
 
-func UnmarshalDto(w http.ResponseWriter, r *http.Request, dto interface{}) ([]string, pkgError.AppError) {
+func UnmarshalDto(w http.ResponseWriter, r *http.Request, dto interface{}) ([]string, pkg_error.AppError) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		appError := pkgError.NewInputError("Request DTO error", err)
-		webResponse.ERROR(w, http.StatusBadRequest, appError)
+		appError := pkg_error.NewInputError("Request DTO error", err)
+		web_response.ERROR(w, http.StatusBadRequest, appError)
 		return nil, appError
 	}
 	appError := unmarshalBodyToDto(w, body, dto)
@@ -32,8 +32,8 @@ func UnmarshalDto(w http.ResponseWriter, r *http.Request, dto interface{}) ([]st
 	requestBody := map[string]interface{}{}
 	err = json.NewDecoder(strings.NewReader(string(body))).Decode(&requestBody)
 	if err != nil {
-		appError = pkgError.NewInputError("Request DTO error", err)
-		webResponse.ERROR(w, http.StatusBadRequest, appError)
+		appError = pkg_error.NewInputError("Request DTO error", err)
+		web_response.ERROR(w, http.StatusBadRequest, appError)
 		return nil, appError
 	}
 
@@ -59,17 +59,17 @@ func UnmarshalDto(w http.ResponseWriter, r *http.Request, dto interface{}) ([]st
 	return updatedFields, nil
 }
 
-func unmarshalBodyToDto(w http.ResponseWriter, body []byte, dto interface{}) pkgError.AppError {
+func unmarshalBodyToDto(w http.ResponseWriter, body []byte, dto interface{}) pkg_error.AppError {
 	err := json.Unmarshal(body, dto)
 	if err != nil {
-		appError := pkgError.NewInputError("Request DTO error", err)
-		webResponse.ERROR(w, http.StatusBadRequest, appError)
+		appError := pkg_error.NewInputError("Request DTO error", err)
+		web_response.ERROR(w, http.StatusBadRequest, appError)
 		return appError
 	}
 
 	if err := validator.Validate(dto); err != nil {
-		appError := pkgError.NewInputError("Request DTO error", err)
-		webResponse.ERROR(w, http.StatusBadRequest, appError)
+		appError := pkg_error.NewInputError("Request DTO error", err)
+		web_response.ERROR(w, http.StatusBadRequest, appError)
 		return appError
 	}
 	return nil

@@ -3,7 +3,7 @@ package db
 import (
 	"context"
 	"customer_partner_match/model"
-	"customer_partner_match/pkg/pkgError"
+	"customer_partner_match/pkg/pkg_error"
 	"customer_partner_match/ports/output"
 	"errors"
 	"fmt"
@@ -22,27 +22,27 @@ func NewFloorPartnerRepository(dbConn *pgx.Conn, table string) *Repository {
 		table:  table,
 	}
 }
-func (r *Repository) PersistNewPartner(ctx context.Context, inputDTO model.NewFloorPartnerDTO) pkgError.AppError {
+func (r *Repository) PersistNewPartner(ctx context.Context, inputDTO model.NewFloorPartnerDTO) pkg_error.AppError {
 	query := r.buildPersistPartnerQuery(inputDTO)
 	exec, err := r.dbConn.Exec(ctx, query)
 	if err != nil {
-		return pkgError.NewServerError("postgres insert", err)
+		return pkg_error.NewServerError("postgres insert", err)
 	}
 
 	if exec.RowsAffected() != 1 {
-		return pkgError.NewServerError("postgres insert",
+		return pkg_error.NewServerError("postgres insert",
 			errors.New(fmt.Sprintf("rows affected != 1, rows: %v", exec.RowsAffected())))
 	}
 	return nil
 }
 
 func (r *Repository) SelectPartners(ctx context.Context, inputDTO model.FloorRequestDTO) (
-	[]model.FloorPartnerResponseDTO, pkgError.AppError) {
+	[]model.FloorPartnerResponseDTO, pkg_error.AppError) {
 
 	query := r.buildSelectPartnersQuery(inputDTO)
 	rows, err := r.dbConn.Query(ctx, query)
 	if err != nil {
-		return nil, pkgError.NewServerError("sql query error", err)
+		return nil, pkg_error.NewServerError("sql query error", err)
 	}
 	defer rows.Close()
 
@@ -57,7 +57,7 @@ func (r *Repository) SelectPartners(ctx context.Context, inputDTO model.FloorReq
 			&floorPartner.Longitude,
 			&floorPartner.Distance)
 		if err != nil {
-			return nil, pkgError.NewServerError("row scan error", err)
+			return nil, pkg_error.NewServerError("row scan error", err)
 		}
 		floorPartners = append(floorPartners, floorPartner)
 	}
