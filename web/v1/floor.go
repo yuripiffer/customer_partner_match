@@ -3,8 +3,8 @@ package v1
 import (
 	"customer_partner_match/model"
 	"customer_partner_match/pkg"
-	"customer_partner_match/pkg/pkgError"
-	"customer_partner_match/pkg/webResponse"
+	"customer_partner_match/pkg/pkg_error"
+	"customer_partner_match/pkg/web_response"
 	"customer_partner_match/ports/input"
 	"errors"
 	"github.com/gorilla/schema"
@@ -25,50 +25,50 @@ func (h *FloorV1Handler) CreatePartner(w http.ResponseWriter, r *http.Request) {
 
 	missingFields := checkNewPartnerDTO(requestDTO)
 	if missingFields != "" {
-		webResponse.ERROR(w, http.StatusBadRequest,
-			pkgError.NewInputError("missing/invalid field(s)", errors.New(missingFields)))
+		web_response.ERROR(w, http.StatusBadRequest,
+			pkg_error.NewInputError("missing/invalid field(s)", errors.New(missingFields)))
 		return
 	}
 
 	partner, appError := h.UseCase.CreatePartner(r.Context(), requestDTO)
 	if appError != nil {
-		webResponse.ERROR(w, http.StatusInternalServerError, appError)
+		web_response.ERROR(w, http.StatusInternalServerError, appError)
 		return
 	}
-	webResponse.JSON(w, http.StatusOK, partner)
+	web_response.JSON(w, http.StatusOK, partner)
 	return
 }
 
 func (h *FloorV1Handler) FindPartners(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
-		webResponse.ERROR(w, http.StatusBadRequest, pkgError.NewInputError("invalid params)", err))
+		web_response.ERROR(w, http.StatusBadRequest, pkg_error.NewInputError("invalid params)", err))
 		return
 	}
 
 	requestDTO := new(model.FloorRequestDTO)
 	if err := schema.NewDecoder().Decode(requestDTO, r.Form); err != nil {
-		webResponse.ERROR(w, http.StatusBadRequest, pkgError.NewInputError("invalid params)", err))
+		web_response.ERROR(w, http.StatusBadRequest, pkg_error.NewInputError("invalid params)", err))
 		return
 	}
 
 	missingFields := checkFindPartnersDTO(requestDTO)
 	if missingFields != "" {
-		webResponse.ERROR(w, http.StatusBadRequest,
-			pkgError.NewInputError("missing/invalid field(s)", errors.New(missingFields)))
+		web_response.ERROR(w, http.StatusBadRequest,
+			pkg_error.NewInputError("missing/invalid field(s)", errors.New(missingFields)))
 		return
 	}
 
 	floorPartners, appError := h.UseCase.FindPartners(r.Context(), *requestDTO)
 	if appError != nil {
 		switch appError.GetErrorKey() {
-		case pkgError.InputError:
-			webResponse.ERROR(w, http.StatusBadRequest, appError)
+		case pkg_error.InputError:
+			web_response.ERROR(w, http.StatusBadRequest, appError)
 		default:
-			webResponse.ERROR(w, http.StatusInternalServerError, appError)
+			web_response.ERROR(w, http.StatusInternalServerError, appError)
 			return
 		}
 	}
-	webResponse.JSON(w, http.StatusOK, floorPartners)
+	web_response.JSON(w, http.StatusOK, floorPartners)
 	return
 }
 

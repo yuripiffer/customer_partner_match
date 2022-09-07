@@ -5,7 +5,7 @@ import (
 	"customer_partner_match/infrastructure/db"
 	"customer_partner_match/model"
 	"customer_partner_match/pkg"
-	"customer_partner_match/pkg/pkgError"
+	"customer_partner_match/pkg/pkg_error"
 	"customer_partner_match/ports/input"
 	"errors"
 	"github.com/google/uuid"
@@ -23,7 +23,7 @@ func New(floorRepository *db.Repository) *service {
 	}
 }
 func (s *service) CreatePartner(ctx context.Context, inputDTO model.NewFloorPartnerDTO) (
-	model.NewFloorPartnerDTO, pkgError.AppError) {
+	model.NewFloorPartnerDTO, pkg_error.AppError) {
 	inputDTO.ID = uuid.New().String()
 	inputDTO.Rating = 4. //default
 	inputDTO.Partner = strings.ToUpper(inputDTO.Partner)
@@ -36,10 +36,10 @@ func (s *service) CreatePartner(ctx context.Context, inputDTO model.NewFloorPart
 }
 
 func (s *service) FindPartners(ctx context.Context, inputDTO model.FloorRequestDTO) (
-	[]model.FloorPartnerResponseDTO, pkgError.AppError) {
+	[]model.FloorPartnerResponseDTO, pkg_error.AppError) {
 
 	if !pkg.ValidatePhoneNumber(inputDTO.Phone) {
-		return nil, pkgError.NewInputError("missing/invalid field(s)", errors.New("invalid phone number regex"))
+		return nil, pkg_error.NewInputError("missing/invalid field(s)", errors.New("invalid phone number regex"))
 	}
 
 	floorPartners, appError := s.floorRepository.SelectPartners(ctx, inputDTO)

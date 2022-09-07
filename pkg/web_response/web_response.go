@@ -1,7 +1,7 @@
-package webResponse
+package web_response
 
 import (
-	"customer_partner_match/pkg/pkgError"
+	"customer_partner_match/pkg/pkg_error"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -18,7 +18,7 @@ type errorResponse struct {
 	Status   int    `json:"status"`
 }
 
-func ERROR(w http.ResponseWriter, statusCode int, err pkgError.AppError) {
+func ERROR(w http.ResponseWriter, statusCode int, err pkg_error.AppError) {
 	errResponse := errorResponse{
 		ErrorKey: err.GetErrorKey(),
 		Message:  err.GetMessage(),
