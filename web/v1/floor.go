@@ -2,10 +2,10 @@ package v1
 
 import (
 	"customer_partner_match/model"
-	"customer_partner_match/pkg"
 	"customer_partner_match/pkg/pkg_error"
 	"customer_partner_match/pkg/web_response"
 	"customer_partner_match/ports/input"
+	"encoding/json"
 	"errors"
 	"github.com/gorilla/schema"
 	"math"
@@ -18,8 +18,10 @@ type FloorV1Handler struct {
 
 func (h *FloorV1Handler) CreatePartner(w http.ResponseWriter, r *http.Request) {
 	requestDTO := model.NewFloorPartnerDTO{}
-	_, appError := pkg.UnmarshalDto(w, r, &requestDTO)
-	if appError != nil {
+	err := json.NewDecoder(r.Body).Decode(&requestDTO)
+	if err != nil {
+		web_response.ERROR(w, http.StatusBadRequest,
+			pkg_error.NewInputError("request DTO error", err))
 		return
 	}
 
@@ -77,7 +79,7 @@ func checkNewPartnerDTO(requestDTO model.NewFloorPartnerDTO) string {
 	if requestDTO.Latitude == 0 || math.Abs(requestDTO.Latitude) > 180. {
 		missingFields += "latitude, "
 	}
-	if requestDTO.Latitude == 0 || math.Abs(requestDTO.Longitude) > 180. {
+	if requestDTO.Longitude == 0 || math.Abs(requestDTO.Longitude) > 180. {
 		missingFields += "longitude, "
 	}
 	if requestDTO.Partner == "" {
